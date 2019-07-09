@@ -19,4 +19,6 @@ SearchTree Insert(SearchTree T, ElementType elem);
 SearchTree Delete(SearchTree t, ElementType elem);
 ElementType Retrieve(Position p);
 
+void printTree(SearchTree t);
+
 #endif //DATA_STRUCTURE_EXERCISE_BINARY_SEARCH_TREE_H

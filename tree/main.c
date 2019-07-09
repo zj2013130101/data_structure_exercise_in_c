@@ -14,6 +14,9 @@ int main() {
     tree = Insert(tree, 21);
     tree = Insert(tree, 8);
 
+    printf("Before :\n");
+    printTree(tree);
+
     Position p = FindMin(tree);
     printf("Min : %d\n", Retrieve(p));
 
@@ -34,6 +37,18 @@ int main() {
         printf("Find elem 4!\n");
     }
 
-    MakeEmpty(tree);
 
+    printf("After :\n");
+    Delete(tree, 7);
+    Delete(tree, 10);
+    Delete(tree, 50);
+
+    printTree(tree);
+
+    p = FindMin(tree);
+    printf("Min : %d\n", Retrieve(p));
+    p = FindMax(tree);
+    printf("Max : %d\n", Retrieve(p));
+
+    MakeEmpty(tree);
 }

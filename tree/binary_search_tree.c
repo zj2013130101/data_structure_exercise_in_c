@@ -202,3 +202,14 @@ ElementType Retrieve(Position p)
         return -1;
     }
 }
+
+
+void printTree(SearchTree t)
+{
+    if(t != NULL)
+    {
+        printTree(t->left);
+        printf("%d, ", t->elem);
+        printTree(t->right);
+    }
+}
