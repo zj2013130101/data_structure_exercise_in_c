@@ -30,18 +30,32 @@
 //}
 //
 //Position Find(List l, ElementType x) {
-//    Position pos = l->next;         //remove header
+//    Position pos = l->next;         //assume list have header
 //    for(; pos != NULL; pos = pos->next)
 //    {
 //        if(pos->element == x)
 //            return pos;
 //    }
 //    return pos;
+//
+//    /*second way*/
+////    Position p;
+////    p = l->next;
+////    while(p!= NULL && p->element != x)
+////        p = p->next;
+////    return p;
 //}
 //
+///**
+// * assume a header
+// * if X is not found, the next fild of returned Position is NULL
+// * @param l
+// * @param x
+// * @return
+// */
 //Position FindPrevious(List l, ElementType x) {
 //    Position p;
-//    p = l->next;    //remove header
+//    p = l;                      //assume list have header
 //    while( p->next!=NULL && p->next->element !=x)
 //        p = p->next;
 //    return p;
@@ -55,6 +69,13 @@
 //    free( tmpCell);
 //}
 //
+///**
+// * Insert (after legal position p)
+// * Header implementation assumed
+// * @param l
+// * @param x
+// * @param p
+// */
 //void Insert(List l, ElementType x, Position p) {
 //    Position tmpCell = (Position)malloc(sizeof(struct node));
 //    if(tmpCell == NULL)
@@ -68,11 +89,13 @@
 //}
 //
 //void DeleteList(List l) {
-//    while( l->next != NULL)
+//    Position p = l->next;       //assume list have head
+//    Position tmpCell;
+//    while( p != NULL)
 //    {
-//        Position tmpCell = l->next;
-//        l->next = l->next->next;
-//        free( tmpCell);
+//        tmpCell = p->next;      //save next node
+//        free(p);
+//        p = tmpCell;
 //    }
 //    free(l);
 //}

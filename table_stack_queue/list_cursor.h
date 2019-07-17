@@ -11,7 +11,6 @@
  * 链表的游标实现：不支持指针的情况下，用数组实现链表（全局结构体数组，索引字段为数组下标）。
  * 数组下标实现指针索引，freelist空闲数组链表标记资源分配。
  *
- *
  */
 
 typedef int ElementType;
@@ -19,9 +18,7 @@ typedef int PtrNode;
 typedef PtrNode List;
 typedef PtrNode Position;
 
-
 void InitializeCursorSpace(void);
-
 
 List makeEmpty(List l);
 int isEmpty(const List l);
@@ -37,8 +34,5 @@ Position Advance(const Position p);
 ElementType Retrieve(const Position p);
 
 List CreateList();
-
-
-
 
 #endif //OFFER_EXERCISE_LIST_CURSOR_H

@@ -24,3 +24,4 @@ ElementType frontAndDequeue(Queue q);
 
 
 #endif //OFFER_EXERCISE_QUEUE_H
+

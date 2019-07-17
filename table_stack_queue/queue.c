@@ -46,7 +46,7 @@ Queue createQueue(int MaxElements)
         return NULL;
     }
     Queue q = (Queue)malloc(sizeof(struct queue));
-    if(q)
+    if(q != NULL)
     {
         q->elem = (ElementType*)malloc( MaxElements * sizeof(ElementType));
         if(q->elem)
@@ -67,7 +67,6 @@ Queue createQueue(int MaxElements)
         printf("out of space\n");
         return NULL;
     }
-
 }
 
 void disposeQueue(Queue q)
@@ -94,7 +93,7 @@ void enqueue(Queue q, ElementType elem)
     if(!isFull(q))
     {
         q->size++;
-        q->rear = (q->rear + 1)%q->capacity;
+        q->rear = (q->rear + 1)%q->capacity;    //注意运算符优先级（注意前缀自增和后缀自增的区别）
         q->elem[q->rear] = elem;
     }else
     {

@@ -8,46 +8,6 @@
 
 typedef struct TreeNode* PtrNode;
 
-//tree define
-//struct TreeNode{
-//    ElementType elem;
-//    PtrNode fisrtchild;
-//    PtrNode nextSibling;
-//};
-
-
-//tree preorder traversal
-//static void ListDir(DirectoryOrFile D, int Depth)
-//{
-//    if( D is a valid entry)
-//    {
-//        PrintName(D, Depth);
-//        if( D is a directory)
-//        {
-//            for each child, C, of D
-//                ListDir(C, Depth+1);
-//        }
-//    }
-//
-//}
-
-
-//tree postorder traversal
-//static void SizeDirectory(DirectoryOrFile D)
-//{
-//    int TotalSize = 0;
-//    if( D is a valid entry)
-//    {
-//        TotalSize += FileSize(D);
-//        if(D is a directory)
-//        {
-//            for each child, C of D
-//                TotalSize += SizeDirectory(C);
-//        }
-//    }
-//}
-
-
 // binary tree define
 struct TreeNode{
     ElementType elem;
@@ -64,49 +24,44 @@ SearchTree MakeEmpty(SearchTree T)
         MakeEmpty(T->right);
         free(T);                //postorder traversal
     }
-
     return NULL;
 }
 
 Position Find(SearchTree T, ElementType x)
 {
-    if(T != NULL)
-    {
-       if (T->elem > x) {
-            return Find(T->left, x);
-        } else if (T->elem < x) {
-            return Find(T->right, x);
-        }else
-            return T;
-    }else
+    if(T == NULL)       //base condition
         return NULL;
+
+   if (T->elem > x) {
+        return Find(T->left, x);
+    } else if (T->elem < x) {
+        return Find(T->right, x);
+    }else
+        return T;
 }
 
 Position FindMin(SearchTree T)
 {
-    if(T != NULL)
-    {
-        if(T->left == NULL)         //base condition
-        {
-            return T;
-        }else{
-            return FindMin(T->left);
-        }
-    }else
+    if(T == NULL)
         return NULL;
+
+    if(T->left == NULL)         //base condition
+    {
+        return T;
+    }else{
+        return FindMin(T->left);
+    }
 }
 
 Position FindMax(SearchTree T)
 {
-    if(T)
-    {
-        if(T->right == NULL)    //base condition
-            return T;
-        else
-            return FindMax(T->right);
-    }else
+    if(T == NULL)
         return NULL;
 
+    if(T->right == NULL)    //base condition
+        return T;
+    else
+        return FindMax(T->right);
 }
 
 /*FindMax的非递归实现*/
@@ -144,7 +99,7 @@ SearchTree Insert(SearchTree T, ElementType elem)
 
     /*else x is in the tree already; we'll do nothing*/
 
-    return T;      /*don't forget this line*/
+    return T;      /*don't forget this line*/ //构建父子链接关系
 }
 
 
@@ -189,9 +144,42 @@ SearchTree Delete(SearchTree T, ElementType elem)
             T->right = Delete(T->right, elem);
     }
 
-    return T;           /*don't forget this line*/
+    return T;           /*don't forget this line*/     //构建父子链接关系
 }
 
+
+SearchTree Delete2(SearchTree t, ElementType x)
+{
+    Position tmpCell;
+
+    if(t == NULL)
+        printf("Error: Element not Found!");
+    else if( x < t->elem)   /*go left*/
+    {
+        t->left = Delete(t->left, x);
+    }else if( x > t->elem)  /*go right*/
+    {
+        t->right = Delete(t->right, x);
+    }else                   /*found element to be deleted*/
+    {
+        if( t->left && t->right)    /*two children*/
+        {
+            /*replace with smallest in right subtree*/
+            tmpCell = FindMin(t->right);
+            t->elem = tmpCell->elem;
+            t->right = Delete(t->right, t->elem);
+        }else                       /*One or zero childer*/
+        {
+            tmpCell = t;
+            if(t->left == NULL)     //also handles 0 children
+                t = t->right;
+            else if(t->right == NULL)
+                t = t->left;
+            free(tmpCell);
+        }
+    }
+    return t;       /*don't forget this line*/     //构建父子链接关系
+}
 
 ElementType Retrieve(Position p)
 {

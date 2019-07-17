@@ -2,58 +2,73 @@
 //// Created by joan on 19-7-3.
 ////
 //
-//#include "stack.h"
-//#include "malloc.h"
-//#include <stdio.h>
-//
-///*stack implement by array */
-//
-////#define STACK_SIZE 100
-////typedef int Position;
-//////typedef struct Node * Position;
-////
-////
-////struct stack{
-////    int element[STACK_SIZE];
-////    int top_pos;
-////};
-////
-////void push(Stack s, ElementType element) {
-////    if( s->top_pos < STACK_SIZE)
-////    {
-////        s->top_pos +=1;
-////        s->element[s->top_pos] = element;
-////    }
-////}
-////
-////ElementType pop(Stack s) {
-////    if(s->top_pos > -1 )
-////        return s->element[s->top_pos--];
-////    else{
-////        printf("stack is empty!\n");
-////        return 0;
-////    }
-////}
-////
-////Stack createStack() {
-////    Stack s = NULL;
-////    s = (Stack) malloc( sizeof(struct stack));
-////    s->top_pos = -1;
-////    if(!s)
-////    {
-////        printf("out of space!\n");
-////    }
-////    return s;
-////}
-////
-////
-////int stackEmpty(Stack s)
-////{
-////    return s->top_pos == -1;
-////}
-//
-//
-//
+#include "stack.h"
+#include "malloc.h"
+#include <stdio.h>
+
+/*stack implement by array */
+
+#define MinStackSize 100
+typedef int Position;
+
+struct stack{
+    int capacity;
+    int top_pos;
+    ElementType* elemArr;
+};
+
+void push(Stack s, ElementType element) {
+    if( s->top_pos < s->capacity)
+    {
+        s->top_pos +=1;
+        s->elemArr[s->top_pos] = element;
+    }else
+    {
+        printf("Error: Stack is Full!");
+    }
+}
+
+ElementType pop(Stack s) {
+    if(s->top_pos > -1 )
+        return s->elemArr[s->top_pos--];
+    else{
+        printf("stack is empty!\n");
+        return 0;
+    }
+}
+
+Stack createStack(int MaxElements) {
+    Stack s = NULL;
+    if(MaxElements < MinStackSize)
+    {
+        printf("Stack size is too small!");
+    }
+    s = (Stack) malloc( sizeof(struct stack));
+    if(!s)
+    {
+        printf("out of space!\n");
+        return NULL;
+    }
+    s->elemArr = (ElementType*) malloc( MaxElements * sizeof(ElementType));
+    if(s->elemArr == NULL)
+    {
+        printf("Error: out of space!");
+        free(s);
+        return NULL;
+    }
+    s->top_pos = -1;
+    s->capacity = MaxElements;
+    return s;
+}
+
+
+int stackEmpty(Stack s)
+{
+    return s->top_pos == -1;
+}
+
+
+
 ///*stack implement by list */
 //typedef struct node* Position;
 //struct node
@@ -96,7 +111,7 @@
 //        return elem;
 //    }else
 //    {
-//        printf("stack is not empty!");
+//        printf("stack is empty!");
 //        return 0;
 //    }
 //}
@@ -123,6 +138,19 @@
 //
 //}
 //
+//Stack createStack()
+//{
+//    Stack s = (Stack) malloc(sizeof(struct stack));
+//    if(s)
+//    {
+//        s->head.next = NULL;
+//        return s;
+//    }else{
+//        printf("out of space!");
+//        return NULL;
+//    }
+//
+//}
 //
 //void makeEmpty(Stack s)
 //{
@@ -137,21 +165,6 @@
 //            pos = temp;
 //        }
 //    }
-//}
-//
-//
-//Stack createStack()
-//{
-//    Stack s = (Stack) malloc(sizeof(struct stack));
-//    if(s)
-//    {
-//        s->head.next = NULL;
-//        return s;
-//    }else{
-//        printf("out of space!");
-//        return NULL;
-//    }
-//
 //}
 //
 //
@@ -171,10 +184,10 @@
 //        free(s);
 //    }
 //}
-//
-//
-//
-//
-//
-//
-//
+
+
+
+
+
+
+
