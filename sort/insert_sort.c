@@ -44,3 +44,67 @@ void InsertSort2(ElementType arr[], int N)
         arr[j] = tmp;
     }
 }
+
+
+/**
+ *  改进：二分插入排序
+ *       (1). 在前面已排好序的序列中找当前需要插入的元素的时候，采用二分查找的方式去找那个插入的位置(大于key的位置)
+ *       (2). 找到那个位置之后，再进行元素的移动，以及把那个元素插入到找到的那个位置
+*/
+
+
+int binary_serach(int arr[], int left, int right)
+{
+
+}
+
+
+void insert_sort3(int arr[], int len)
+{
+    int i, j;
+    for(i = 1; i < len ; i++)
+    {
+        int key = arr[i];
+        int left = 0;
+        int right = i-1;
+        int mid = 0;
+        while( left <= right)
+        {
+            mid = (left + right)/2;
+            if(arr[mid] < key)
+            {
+                left = mid + 1;
+            }else if(arr[mid] > key)
+            {
+                right = mid - 1;
+            }else
+            {
+                break;
+            }
+        }
+        //二分结束之后　L= 刚好大于Key(不是等于)的那个位置
+//        for(j = i -1; j > mid ; j--)
+//            arr[j+1] = arr[j];
+//        arr[mid + 1] = key;
+        for(j= i-1; j >= left; j--)
+            arr[j+1] = arr[j];
+        arr[left] = key;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -7,6 +7,8 @@
 
 typedef int ElementType;
 
-void quickSort(ElementType arr[], int N);
+void quickSort1(ElementType arr[], int n);
+void quickSort2(ElementType arr[], int n);
+void quickSort3(ElementType arr[], int n);
 
 #endif //DATA_STRUCTURE_EXERCISE_QUICK_SORT_H

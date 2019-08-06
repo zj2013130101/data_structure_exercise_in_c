@@ -33,6 +33,7 @@ void shell_sort(ElementType arr[], int N)
     }
 }
 
+
 void shell_sort2(ElementType arr[], int N)
 {
 
